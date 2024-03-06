@@ -8,6 +8,7 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
 const authenticate = async (req, res, next) => {
+  console.log("IN AUTHENTICATE FUNCTION");
   const authHeader = req.headers.authorization;
   const token = authHeader?.split(" ")[1]; // Expecting Bearer [token]
   console.log(token, "THIS IS THE TOKEN");
