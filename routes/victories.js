@@ -6,7 +6,7 @@ const authenticate = require("../middleware/authenticate");
 // Middleware to verify user token and attach user info to request
 
 // Fetch all victories for the logged-in user
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   const { data: victories, error } = await supabase
     .from("victories")
     .select("*")
