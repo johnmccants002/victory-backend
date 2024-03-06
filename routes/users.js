@@ -4,6 +4,7 @@ const authenticate = require("../middleware/authenticate"); // Adjust path as ne
 
 // Route to get current user
 router.get("/current-user", authenticate, (req, res) => {
+  console.log("IN THE CURRENT USER FUNCTION");
   if (!req.user) {
     return res.status(404).send("User not found");
   }

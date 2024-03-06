@@ -18,18 +18,19 @@ const authenticate = async (req, res, next) => {
   }
 
   // Note: Setting up Supabase client to include the Authorization header with the token
-  const supabase = createClient(supabaseUrl, supabaseKey, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
 
   try {
-    const { data: user, error } = await supabase.auth.user();
-    if (error) throw new Error(error.message);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    console.log("THIS IS THE user", JSON.stringify(user));
 
     // Attaching the user object to the request so it can be used in subsequent routes
     req.user = user;
     next();
   } catch (error) {
+    console.log("IN THE CATCH BLOCK");
     return res.status(401).send(error.message || "Authentication failed");
   }
 };
