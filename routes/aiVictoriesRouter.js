@@ -6,7 +6,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // Middleware for OpenAI API configuration or other shared setup could go here
 
 // Process a to-do list into victories
-app.post("/processToDoList", async (req, res) => {
+router.post("/processToDoList", async (req, res) => {
   const { toDoList } = req.body;
 
   if (!toDoList) {
@@ -52,7 +52,7 @@ app.post("/processToDoList", async (req, res) => {
 });
 
 // Generate mini victories related to a specific victory
-app.post("/generateMiniVictories", async (req, res) => {
+router.post("/generateMiniVictories", async (req, res) => {
   const { victoryText } = req.body;
 
   if (!victoryText) {

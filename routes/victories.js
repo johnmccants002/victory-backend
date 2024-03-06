@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const supabase = require("./supabaseClient"); // Adjust the path as necessary to your Supabase client setup
+const supabase = require("../supabaseClient"); // Adjust the path as necessary to your Supabase client setup
 
 // Middleware to verify user token and attach user info to request
 router.use(async (req, res, next) => {
