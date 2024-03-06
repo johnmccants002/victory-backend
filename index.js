@@ -7,7 +7,8 @@ const cors = require("cors");
 const OpenAI = require("openai");
 const authRouter = require("./routes/auth"); // The file name of your routes
 const profileRouter = require("./routes/profile");
-const aiVictoriesRouter = require("./routes/aiVictoriesRouter");
+const aiVictoriesRouter = require("./routes/aiVictories");
+const followRouter = require("./routes/follow");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -40,6 +41,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/victories", victoriesRouter);
 app.use("/api/ai-victories", aiVictoriesRouter);
+app.use("/api/follow", followRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
