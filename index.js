@@ -6,7 +6,7 @@ var logger = require("morgan");
 const cors = require("cors");
 const OpenAI = require("openai");
 const authRouter = require("./routes/auth"); // The file name of your routes
-const profileRouter = require("./routes/profile");
+const profileRouter = require("./routes/profiles");
 const aiVictoriesRouter = require("./routes/aiVictories");
 const followRouter = require("./routes/follow");
 
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api", authRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/profile", profileRouter);
+app.use("/api/profiles", profileRouter);
 app.use("/api/victories", victoriesRouter);
 app.use("/api/ai-victories", aiVictoriesRouter);
 app.use("/api/follow", followRouter);

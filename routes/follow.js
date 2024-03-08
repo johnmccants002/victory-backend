@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authenticate = require("../middleware/authenticate"); // Ensure this path is correct
-const supabase = require("../services/supabaseClient"); // Ensure this path is correct
+const supabase = require("../supabaseClient"); // Ensure this path is correct
 
 // Endpoint to follow a user
 router.post("/follow/:followedId", authenticate, async (req, res) => {

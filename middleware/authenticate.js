@@ -23,13 +23,18 @@ const authenticate = async (req, res, next) => {
   try {
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser(token);
 
     console.log("THIS IS THE user", JSON.stringify(user));
 
+    if (!user) {
+      return res.status(401).send(error.message || "NO USER");
+    } else {
+      req.user = user;
+      next();
+    }
+
     // Attaching the user object to the request so it can be used in subsequent routes
-    req.user = user;
-    next();
   } catch (error) {
     console.log("IN THE CATCH BLOCK");
     return res.status(401).send(error.message || "Authentication failed");

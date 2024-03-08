@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const OpenAI = require("openai");
+const authenticate = require("../middleware/authenticate");
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Middleware for OpenAI API configuration or other shared setup could go here
@@ -8,6 +9,7 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // Process a to-do list into victories
 router.post("/processToDoList", async (req, res) => {
   const { toDoList } = req.body;
+  console.log("🚀 ~ router.post ~ toDoList:", toDoList);
 
   if (!toDoList) {
     return res
@@ -25,7 +27,8 @@ router.post("/processToDoList", async (req, res) => {
         },
         {
           role: "user",
-          content: `Here's a to-do list that I've completed aka Victories: ${toDoList}. Separate out each Victory and put it in past tense. Then return json with array of objects with the key victoryText in each one to match each Victory.`,
+          content: `Here's a to-do list that I've completed aka Victories: ${toDoList}. 
+          Separate out each Victory and put it in past tense. Then return json with array of objects with the key victoryText in each one to match each Victory.`,
         },
       ],
       response_format: { type: "json_object" },

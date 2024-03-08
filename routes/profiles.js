@@ -1,31 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const supabase = require("../supabaseClient"); // Adjust the path as necessary
+const authenticate = require("../middleware/authenticate");
 
 // Middleware to extract and verify the user token
-router.use(async (req, res, next) => {
-  const token = req.headers.token;
-
-  if (!token) {
-    return res.status(401).send("A token is required for authentication");
-  }
-
-  const { data: user, error } = await supabase.auth.api.getUser(token);
-
-  if (error) return res.status(401).send("Invalid token");
-
-  req.user = user;
-  next();
-});
 
 // Get profile information
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
+  console.log("In profile get function");
   const { user } = req;
+  console.log("🚀 ~ router.get ~ user:", user);
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("user_id", user.id)
     .single();
+  console.log("🚀 ~ router.get ~ data:", data);
 
   if (error) return res.status(400).json({ error: error.message });
   res.json(data);
